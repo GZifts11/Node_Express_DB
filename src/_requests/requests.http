@@ -1,0 +1,15 @@
+@api = http://localhost:3000
+
+GET {{api}}/alumnos
+
+###
+POST {{api}}/alumnos
+Content-Type: application/json
+
+{
+    "nombre": "Carlos Rosales",
+    "materia_id": 1,
+    "turno_id": 1,
+    "comision": "A",
+    "debe_correlativa": true
+}
