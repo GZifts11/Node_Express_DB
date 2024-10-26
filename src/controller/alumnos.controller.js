@@ -1,4 +1,4 @@
-import { agregarAlumnoService, getAlumnosService } from "../services/alumnos.service.js"
+import { actualizarAlumnoService, agregarAlumnoService, eliminarAlumnoService, getAlumnoByIdService, getAlumnosJoinService, getAlumnosService } from "../services/alumnos.service.js"
 
 
 export const getAlumnosController = async (req, res) => {
@@ -28,7 +28,75 @@ export const agregarAlumnosController = async (req, res) => {
         res.status(500).send({ message: 'Error al agregar el alumno' })
     }
 }
-export const getAlumnoByIdController = async (req, res) => { }
-export const eliminarAlumnoController = async (req, res) => { }
-export const actualizarAlumnoController = async (req, res) => { }
-export const getAlumnosJoinController = async (req, res) => { }
+export const getAlumnoByIdController = async (req, res) => {
+    const {id}= req.params
+
+    if(isNaN(id)) {
+        return res.status(404).send({mensaje: 'Error en la solicitud, el ID debe ser un número'})
+    }
+
+    try {
+        const alumnoEncontrado = await getAlumnoByIdService(id)
+
+        if(!alumnoEncontrado) {
+            return res.status(404).send({mensaje: `No se encotró ningún alumno con ID ${id}`})
+        }
+
+        res.status(200).send(alumnoEncontrado)
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({mensaje: 'Error al obtener el alumno'})
+    }
+}
+export const eliminarAlumnoController = async (req, res) => {
+    const {id}= req.params
+
+    if(isNaN(id)) {
+        return res.status(404).send({mensaje: 'Error en la solicitud, el ID debe ser un número'})
+    }
+
+    try {
+        const alumnoEliminado = await eliminarAlumnoService(id)
+
+        if(!alumnoEliminado) {
+            return res.status(404).send({mensaje: `No se encotró ningún alumno con ID ${id}`})
+        }
+
+        res.status(200).send({mensaje: 'El alumno ha sido eliminado correctamente', Alumno: alumnoEliminado})
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({mensaje: 'Error al eliminar el alumno'})
+    }
+}
+export const actualizarAlumnoController = async (req, res) => {
+    const {id} = req.params
+    const { nombre, materia_id, turno_id, comision, debe_correlativa } = req.body
+
+    if (isNaN(id)) {res.status(404).send({mensaje: 'Error en la solicitud, el Id debe ser un número'})}
+
+    try {
+        const alumnoActualizado = await actualizarAlumnoService(id, { nombre, materia_id, turno_id, comision, debe_correlativa });
+
+        if(!alumnoActualizado) {
+            return res.status(404).send({mensaje: `No se encontró el alumno con ID ${id}`})
+        }
+
+        res.status(200).send({
+            mensaje: `El alumno con ID ${id} ha sido actualizado corerctamente`,
+            alumnoActualizado
+        })
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({mensaje: "Error al actualizar el alumno"})
+    }
+}
+export const getAlumnosJoinController = async (req, res) => {
+    try {
+        let alumnos = await getAlumnosJoinService()
+        res.send(alumnos)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({mensaje: "Error al obtener el join de alumnos"})
+    }
+}

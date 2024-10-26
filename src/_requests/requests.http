@@ -7,9 +7,32 @@ POST {{api}}/alumnos
 Content-Type: application/json
 
 {
-    "nombre": "Carlos Rosales",
+    "nombre": "Alicia Noemí Robles",
     "materia_id": 1,
-    "turno_id": 1,
-    "comision": "A",
-    "debe_correlativa": true
+    "turno_id": 3,
+    "comision": "C",
+    "debe_correlativa": false
 }
+
+
+
+###
+GET {{api}}/alumnos/1
+
+###
+DELETE {{api}}/alumnos/55a
+
+###
+PUT {{api}}/alumnos/1
+Content-Type: application/json
+
+{
+    "nombre": "Alicia Noemí Robles",
+    "materia_id": 1,
+    "turno_id": 2,
+    "comision": "C",
+    "debe_correlativa": false
+}
+
+###
+GET {{api}}/alumnosjoin

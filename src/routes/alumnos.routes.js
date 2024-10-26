@@ -8,6 +8,6 @@ router.post('/alumnos', agregarAlumnosController)
 router.get('/alumnos/:id', getAlumnoByIdController)
 router.delete('/alumnos/:id', eliminarAlumnoController)
 router.put('/alumnos/:id', actualizarAlumnoController)
-router.get('/alumnos', getAlumnosJoinController)
+router.get('/alumnosjoin', getAlumnosJoinController)
 
 export default router
