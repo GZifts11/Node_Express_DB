@@ -8,7 +8,7 @@ export const getAlumnosRepository = async () => {
 
         console.table(resultado.recordset)
 
-        return resultado
+        return resultado.recordset
 
     } catch (error) {
         console.error('Error en el Repositorio: ', error)

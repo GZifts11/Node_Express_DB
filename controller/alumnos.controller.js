@@ -1,12 +1,17 @@
 import { actualizarAlumnoService, agregarAlumnoService, eliminarAlumnoService, getAlumnoByIdService, getAlumnosJoinService, getAlumnosService } from "../services/alumnos.service.js"
 
+const USE_SQL = false;
 
 export const getAlumnosController = async (req, res) => {
     try {
         let alumnos = await getAlumnosService()
 
-        alumnos.recordset.length === 0 ? res.send('La base de datos está vacía') : res.send(alumnos.recordset)
-
+        if(USE_SQL){
+            alumnos.recordset.length === 0 ? res.send('La base de datos está vacía') : res.send(alumnos.recordset)
+        }else{
+            alumnos.length === 0 ? res.send('La Base de datos está vacía') : res.send(alumnos)
+        }
+        
     } catch (error) {
         console.error(error)
         res.status(500).send({ message: 'Error al obtener los alumnos' })
@@ -31,7 +36,7 @@ export const agregarAlumnosController = async (req, res) => {
 export const getAlumnoByIdController = async (req, res) => {
     const {id}= req.params
 
-    if(isNaN(id)) {
+    if(isNaN(id) && USE_SQL) {
         return res.status(404).send({mensaje: 'Error en la solicitud, el ID debe ser un número'})
     }
 
@@ -51,7 +56,7 @@ export const getAlumnoByIdController = async (req, res) => {
 export const eliminarAlumnoController = async (req, res) => {
     const {id}= req.params
 
-    if(isNaN(id)) {
+    if(isNaN(id) && USE_SQL) {
         return res.status(404).send({mensaje: 'Error en la solicitud, el ID debe ser un número'})
     }
 
@@ -72,7 +77,7 @@ export const actualizarAlumnoController = async (req, res) => {
     const {id} = req.params
     const { nombre, materia_id, turno_id, comision, debe_correlativa } = req.body
 
-    if (isNaN(id)) {res.status(404).send({mensaje: 'Error en la solicitud, el Id debe ser un número'})}
+    if (isNaN(id) && USE_SQL) {res.status(404).send({mensaje: 'Error en la solicitud, el Id debe ser un número'})}
 
     try {
         const alumnoActualizado = await actualizarAlumnoService(id, { nombre, materia_id, turno_id, comision, debe_correlativa });
@@ -94,7 +99,7 @@ export const actualizarAlumnoController = async (req, res) => {
 export const getAlumnosJoinController = async (req, res) => {
     try {
         let alumnos = await getAlumnosJoinService()
-        res.send(alumnos)
+        USE_SQL ? res.send(alumnos) : res.status(404).send(alumnos)
     } catch (error) {
         console.error(error)
         res.status(500).json({mensaje: "Error al obtener el join de alumnos"})

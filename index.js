@@ -1,6 +1,6 @@
 import express from 'express'
 import { expressConfig } from './src/config.js'
-import alumnosRoutes from './src/routes/alumnos.routes.js'
+import alumnosRoutes from './routes/alumnos.routes.js'
 
 // import './src/database/conexion.js'
 

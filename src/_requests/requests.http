@@ -7,7 +7,7 @@ POST {{api}}/alumnos
 Content-Type: application/json
 
 {
-    "nombre": "Alicia Noemí Robles",
+    "nombre": "Alicia Noemí Roblesssss",
     "materia_id": 1,
     "turno_id": 3,
     "comision": "C",
@@ -17,22 +17,39 @@ Content-Type: application/json
 
 
 ###
-GET {{api}}/alumnos/1
+GET {{api}}/alumnos/6
+
+###MONGO DB
+GET {{api}}/alumnos/67219806e260fa28c0f972ae
+
 
 ###
-DELETE {{api}}/alumnos/55a
+DELETE {{api}}/alumnos/67219806e260fa28c0f972ae
 
 ###
-PUT {{api}}/alumnos/1
+PUT {{api}}/alumnos/6
 Content-Type: application/json
 
 {
-    "nombre": "Alicia Noemí Robles",
+    "nombre": "Alicia Noemí Robleeees",
     "materia_id": 1,
     "turno_id": 2,
     "comision": "C",
     "debe_correlativa": false
 }
+
+###MONGO DB
+PUT {{api}}/alumnos/67219806e260fa28c0f972ac
+Content-Type: application/json
+
+{
+    "nombre": "Alicia Noemí Roejjjjjjjjs",
+    "materia_id": 1,
+    "turno_id": 2,
+    "comision": "C",
+    "debe_correlativa": false
+}
+
 
 ###
 GET {{api}}/alumnosjoin

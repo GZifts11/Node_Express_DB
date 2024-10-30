@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import { configDB } from '../config.js'
+import { configDB } from '../src/config.js'
 
 const dbConfig = {
     user: configDB.user,
@@ -16,8 +16,8 @@ export async function getConnection() {
     try {
         const pool = await sql.connect(dbConfig);
 
-        // const resultado = await pool.request().query('SELECT 1');
-        // console.log(resultado)
+         const resultado = await pool.request().query('SELECT 1');
+         console.log(resultado)
 
         return pool
     } catch (error) {

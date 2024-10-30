@@ -1,4 +1,4 @@
-import { actualizarAlumnoRepository, agregarAlumnoRepository, eliminarAlumnoRepository, getAlumnoByIdRepository, getAlumnosJoinRepository, getAlumnosRepository } from "../repository/alumnos.repository.js"
+import { actualizarAlumnoRepository, agregarAlumnoRepository, eliminarAlumnoRepository, getAlumnoByIdRepository, getAlumnosJoinRepository, getAlumnosRepository } from "../repository/alumnos.repositoryMongoDB.js"
 
 export const getAlumnosService = async () => {
     try {
